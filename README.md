@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <a href="https://github.com/layoutBox/FlexLayout"><img src="docs_markdown/images/flexlayout-logo-text.png" alt="FlexLayout" width="210"/></a>
 </p>
@@ -21,9 +23,9 @@ Flexbox is an incredible improvement over UIStackView. It is simpler to use, muc
 
 
 ### Requirements
-* iOS 8.0+
-* Xcode 8.0+ / Xcode 9.0+
-* Swift 3.0+ / Swift 4.0
+* iOS 12.0+
+* Xcode 12.0+
+* Swift Swift 4.0
 
 ### Content
 
@@ -34,7 +36,7 @@ Flexbox is an incredible improvement over UIStackView. It is simpler to use, muc
 	* [Creation, modification and definition of flexbox containers](#create_modify_define_containers)
 	* [Flexbox containers properties](#containers_properties)
 	* [Flexbox items properties](#intems_properties)
-	* [Absolute positioning](#absolute_positioning)
+	* [Positioning](#positioning)
 	* [Adjusting the size](#adjusting_size)
 		* [Width, height and size](#width_height_size)
 		* [minWidth, maxWidth, minHeight, maxHeight](#minmax_width_height_size)
@@ -409,7 +411,7 @@ Another possible solution:
 ### layout()
 - Applies to: `flex containers`
 - Values: `fitContainer` / `adjustWidth` / `adjustHeight`
-- Default value: `fitContainer `
+- Default value: `fitContainer`
 
 **Method:**
 
@@ -419,8 +421,8 @@ The method will layout the flex container's children.
   Layout modes:
 
   * **`fitContainer`**: This is the default mode when no parameter is specified. Children are layouted **inside** the container's size (width and height). 
-  * **`adjustHeight `**: In this mode, children are layouted **using only the container's width**. The container's height will be adjusted to fit the flexbox's children
-  * **`adjustWidth `**: In this mode, children are layouted **using only the container's height**. The container's width will be adjusted to fit the flexbox's children
+  * **`adjustHeight`**: In this mode, children are layouted **using only the container's width**. The container's height will be adjusted to fit the flexbox's children
+  * **`adjustWidth`**: In this mode, children are layouted **using only the container's height**. The container's width will be adjusted to fit the flexbox's children
 
 ###### Usage examples:
 ```swift
@@ -438,6 +440,10 @@ This section describes all flex container's properties.
 - Values: `column` / `columnReverse` / `row` / `rowReverse`
 - Default value: `column`
 - CSS name: `flex-direction` 
+
+**Property:**
+
+* **`direction: Direction?`**  
 
 **Method:**
 
@@ -509,7 +515,7 @@ The `justifyContent` property defines the alignment along the main-axis of the c
 ### alignItems()
 - Applies to: `flex containers`
 - Values: `stretch` / `start` / `end` / `center` / `baseline`
-- Default value: `stretch `
+- Default value: `stretch`
 - CSS name: `align-items` 
 
 **Method:**
@@ -574,7 +580,7 @@ Reminder: the cross axis is the axis perpendicular to the main axis. Its directi
 
 ### alignContent()
 - Applies to: `flex containers`
-- Values: `start` / `end` / `center` / `stretch` / `spaceBetween` / `spaceAround`
+- Values: `start` / `end` / `center` / `stretch` / `spaceBetween` / `spaceAround` / `spaceEvenly`
 - Default value: `start`
 - CSS name: `align-content`  
 
@@ -594,6 +600,7 @@ Note, `alignContent` has no effect when the flexbox has only a single line.
 | **stretch**	| <img src="docs_markdown/images/flexlayout-alignItems-column-stretch.png" width="140"/>| <img src="docs_markdown/images/flexlayout-alignItems-row-stretch.png" width="160"/>|
 | **spaceBetween** | <img src="docs_markdown/images/flexlayout-alignItems-column-spaceBetween.png" width="160"/> | <img src="docs_markdown/images/flexlayout-alignItems-row-spaceBetween.png" width="160"/>|
 | **spaceAround** | <img src="docs_markdown/images/flexlayout-alignItems-column-spaceAround.png" width="160"/> | <img src="docs_markdown/images/flexlayout-alignItems-row-spaceAround.png" width="160"/>|
+| **spaceEvenly** | | |
 
 <br/>
 
@@ -658,7 +665,7 @@ It specifies the "flex shrink factor", which determines how much the flex item w
 <br>
 
 ### basis
-- Applies to: `flex items `
+- Applies to: `flex items`
 - Default value: 0
 - CSS name: `flex-basis` 
 
@@ -674,6 +681,23 @@ This property takes the same values as the width and height properties, and spec
 
 
 <br>
+
+### gap
+- Applies to: `flex containers`
+- CSS name: `gap`
+
+**Method:**
+
+* **`columnGap(_ value: CGFloat)`**
+This property set distance between columns.
+
+* **`rowGap(_ value: CGFloat)`**
+This property set distance between rows.
+
+* **`gap(_ value: CGFloat)`**
+This property set distance between both of rows and columns.
+
+<br/>
 
 ### isIncludedInLayout()
 - Applies to: `flex items`
@@ -697,6 +721,26 @@ FlexLayout automatically includes the UIView when:
 * **`display(_: Display)`**  
 
 Set the item display or not, with `none` value, the item will be hidden and not included in the layout.
+
+Values:
+* **`flex`**: Default value. The item is displayed normally and included in the layout.
+* **`none`**: The item will be hidden and not included in the layout.
+* **`contents`**: The node is removed from the layout flow, while its children are preserved and hoisted. This allows higher-level UI frameworks to compose wrapper components (e.g., to handle events) without influencing the layout of child nodes.
+
+<br>
+
+### boxSizing
+- Applies to: `flex items`
+
+**Method:**
+
+* **`boxSizing(_: BoxSizing)`**  
+
+Set the box sizing mode for the item. This determines how the width and height of an element are calculated.
+
+Values:
+* **`borderBox`**: Default value. With `borderBox`, the specified dimensions (width, height) include the content, padding, and border. This means the overall size of the element is as defined, with padding and border accounted for inside.
+* **`contentBox`**: With `contentBox`, the specified dimensions refer only to the content area. Padding and borders are added outside these dimensions, potentially increasing the total size of the element.
 
 <br>
 
@@ -755,8 +799,8 @@ Item natural size, considering only properties of the view itself. Independent o
 
 <br>
 
-<a name="absolute_positioning"></a>
-## 4. Absolute positioning  
+<a name="positioning"></a>
+## 4. Positioning  
 - Applies to: `flex items`
 - Parameter: CGFloat
 
@@ -764,16 +808,23 @@ Item natural size, considering only properties of the view itself. Independent o
 
 * **`position(_: Position)`**   
 The position property tells Flexbox how you want your item to be positioned within its parent. Position values:
-  * **`relative (default)`**
-  * **`absolute`**: The view is positioned using properties: top(), bottom(), left(), right(), start(), end().
+  * **`relative (default)`** The view is positioned using Insets properties (top, bottom, left, right, start, end) from its normal position within its flex container and will take up space within the flex container. This node will always form a containing block.
+  * **`absolute`**: The view is removed from the flex container's flow and is positioned using Insets properties (top, bottom, left, right, start, end). Insets will offset the node from its containing block.
+  * **`static`**: The view ignores insets and will not form a containing block.
 
 ###### Usage examples:
 ```swift
+  view.flex.position(.relative).top(10).left(10).size(50)
+
   view.flex.position(.absolute).top(10).left(10).size(50)
 ```
 
 ### top(), bottom(), left(), right(), start(), end(), vertically(), horizontally(), all()
-A flex item which is `position` is set to `.absolute` is positioned absolutely in regards to its parent. This is done through the following methods:
+A flex item with position set to .relative is positioned relative to its normal position within its flex container. Only one property can be applied in each direction, either vertical or horizontal. If both `top` and `bottom` properties are set, `top` takes precedence. If both `left` and `right` properties are set, `left` takes precedence.
+
+A flex item with position set to .absolute is positioned absolutely with respect to its containing block. Using these properties you can control the size and position of an absolute item within its parent. Because absolutely positioned children don’t affect their sibling's layout. Absolute position can be used to create overlays and stack children in the Z axis. 
+
+This is done through the following methods:
 
 **Methods:**
 
@@ -796,10 +847,10 @@ Controls the distance child’s left and right edges from the parent’s edges. 
 * **`all(: CGFloat)`** / **`all(: FPercent)`**:  
 Controls the distance child’s edges from the parent’s edges. Equal to `top().bottom().left().right()`.
 
-Using these properties you can control the size and position of an absolute item within its parent. Because absolutely positioned children don’t affect their sibling's layout. Absolute position can be used to create overlays and stack children in the Z axis.
-
 ###### Usage examples:
 ```swift
+  view.flex.position(.relative).top(10).right(10).width(100).height(50)
+
   view.flex.position(.absolute).top(10).right(10).width(100).height(50)
   view.flex.position(.absolute).left(20%).right(20%)
 ```
@@ -991,13 +1042,21 @@ FlexLayout also adds methods to set common UIView properties.
 
 * **`backgroundColor(_ color: UIColor)`**  
 Set the flex item's UIView background color. 
+* **`cornerRadius(_ value: CGFloat)`**  
+Set the flex item's UIView rounded corner radius.
+* **`border(_ width: CGFloat, _ color: UIColor)`**  
+Set the flex item's UIView border.
 
 ###### Usage examples:
 ```swift
   // Create a gray column container and add a black horizontal line separator 
   flex.addItem().backgroundColor(.gray).define { (flex) in
       flex.addItem().height(1).backgroundColor(.black)
-  } 
+  }
+  // Set rounded corner
+  flex.addItem().cornerRadius(12)
+  // Set border
+  flex.addItem().border(1, .black)
 ```
 
 <br>
@@ -1110,8 +1169,7 @@ To integrate FlexLayout into another Swift Package, add it as a dependency:
 
 #### In an Xcode target
 
-1. To integrate FlexLayout into an Xcode target, use the `File -> Swift Packages -> Add Package Dependency` menu item.
-2. Add "FLEXLAYOUT_SWIFT_PACKAGE=1" to the Xcode target's `GCC_PREPROCESSOR_DEFINITIONS` build setting. (TARGET -> Build Settings -> Apple Clang-Preprocessing -> Preprocessor Macros)
+To integrate FlexLayout into an Xcode target, use the `File -> Swift Packages -> Add Package Dependency` menu item.
 
 
 <br/>

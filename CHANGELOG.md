@@ -7,10 +7,245 @@
 
 # Change Log
 
+## [2.2.0](https://github.com/layoutBox/FlexLayout/releases/tag/2.2.0)
+
+#### Upgrade yoga to v3.2.1
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#271](https://github.com/layoutBox/FlexLayout/pull/266)
+
+#### Upgrade yoga to v3.1.0
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#266](https://github.com/layoutBox/FlexLayout/pull/266)
+
+
+## [2.0.10](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.10)
+
+#### Support `align-content`: `space-evenly`
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#255](https://github.com/layoutBox/FlexLayout/pull/255)
+
+
+## [2.0.9](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.9)
+
+#### Add `static` position feature
+
+Add feature for the static position supported in Yoga version 3.0.0.
+- Due to the default behavior of Yoga, insets like top, left, bottom, and right also affect relative position view. Accordingly, the README, docs and comments have been updated to match the Yoga specifications.
+- Added static case to position and unit tests.
+
+https://www.yogalayout.dev/docs/styling/position
+https://www.yogalayout.dev/docs/styling/insets
+
+Added by [heoblitz](https://github.com/heoblitz) in Pull Request [#245](https://github.com/layoutBox/FlexLayout/pull/254)
+
+## [2.0.7](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.7)
+
+#### Update yoga to version 3.0.4
+
+Added by [heoblitz](https://github.com/heoblitz) in Pull Request [#245](https://github.com/layoutBox/FlexLayout/pull/252)
+
+
+## [2.0.06](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.07)
+
+#### Remove FlexLayoutYoga duplicate dependency in Swift Package
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#245](https://github.com/layoutBox/FlexLayout/pull/245)
+
+
+## [2.0.06](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.06)
+
+#### Fix error that occur when creating XCFramework
+
+Background
+
+- Public header issue occurs when using Objective-C package in [Tuist](https://github.com/tuist/tuist)'s Dependency. To resolve this issue, I want to provide xcframework.
+- Resolve the issue that occurs when creating xcframework due to duplicate 'postfix operator %'.
+
+Contents
+
+- remove unnecessary files and headers
+  - Modified to manage yoga directly in FlexLayout. Buck dependency is now unnecessary.
+- remove duplicated postfix operator
+- update Podfile.lock
+- remove Info.plist
+- move `FlexLayout.h` to public header directory
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#244](https://github.com/layoutBox/FlexLayout/pull/244)
+
+
+
+## [2.0.05](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.05)
+Released on 2024-01-11
+
+#### 1) Add `Gap` support
+
+Add `Gap` methods: 
+
+- `columnGap(_ value: CGFloat) -> Flex`
+- `rowGap(_ value: CGFloat) -> Flex`
+- `gap(_ value: CGFloat) -> Flex`
+
+##### background
+After [Yoga layout updated to 2.0.0](https://github.com/layoutBox/FlexLayout/pull/230) the gap func added. and as needed by [this issue](https://github.com/layoutBox/FlexLayout/issues/235) and my company's product, me and my partner @TaekH made feature to use. 🙇‍♂️
+
+Added by [Buseong Kim](https://github.com/Skyline-23) in Pull Request [#241](https://github.com/layoutBox/FlexLayout/pull/241) 
+
+
+#### 2) Fix "Child already has a owner" Assert
+
+Upgrading to the latest version of Yoga introduced an assert in YGNodeInsertChild() that was previously removed accidentally (see relevant commit). This assert will throw an error if the node we are trying to add already has an owner. Unfortunately, we can fall into this case quite easily if we move a view between different superviews (as demonstrated in the following contrived example).
+
+Restoring the changes from this old commit [c303faa](https://github.com/layoutBox/FlexLayout/commit/c303faae7b7b441872f8d49dbd1424db6ec7953f) should ensure that any lingering parent references are cleaned up before we call YGNodeInsertChild()
+
+Added by [kennethpu](https://github.com/kennethpu) in Pull Request [#242](https://github.com/layoutBox/FlexLayout/pull/242)
+
+
+
+## [2.0.04](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.04)
+Released on 2024-01-06
+
+#### Enhance Swift Package experience
+
+- Change the Swift Package Manager to be available without `FLEXLAYOUT_SWIFT_PACKAGE` flag
+- add public header path
+- remove `FLEXLAYOUT_SWIFT_PACKAGE`
+- remove library for internal (FlexLayoutYoga, FlexLayoutYogaKit)
+- move the unit test to the swift package with XCTest
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#232](https://github.com/layoutBox/FlexLayout/pull/232)
+
+#### Split the Example project in 2 projects (Cocoapods & SPM)
+
+Split the Example project in 2 projects:
+
+* `FlexLayoutSample`: Use cocoapods dependency manager
+* `FlexLayoutSample-SPM`: Use SPM (Swift Packager Manager) dependency manager
+
+Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#240](https://github.com/layoutBox/FlexLayout/pull/240) 
+
+
+## [2.0.03](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.03)
+Released on 2023-10-15
+
+#### Fix crashes that occurs when the node's topLeft position is nan
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#230](https://github.com/layoutBox/FlexLayout/pull/234)
+
+
+## [2.0.01](https://github.com/layoutBox/FlexLayout/releases/tag/2.0.01)
+Released on 2023-10-01
+
+#### Update Yoga core to 2.0
+
+FlexLayout version has been increased to reflect the new Yoga core version.
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#230](https://github.com/layoutBox/FlexLayout/pull/230)
+
+
+## [1.3.33](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.33)
+Released on 2023-06-24
+
+#### Resolve lldb debug issue when using CocoaPods
+
+## Background
+
+- Since #219 was merged, LLDB problems have occurred in environments where CocoaPods and SPM are used together.
+- This reverts commit f36c766865df29ac70f31b604dde54c5a975819c. (#219)
+
+## Changes
+
+- Revert f36c766865df29ac70f31b604dde54c5a975819c commit to resolve
+- The existing problem is solved by writing each package.swift like the code below
+
+
+```swift
+// in Package.swift
+.target(
+  name: "SomeTarget",
+  dependencies: [
+    "FlexLayout",
+  ],
+  cSettings: [
+    .define("FLEXLAYOUT_SWIFT_PACKAGE"),
+  ],
+  cxxSettings: [
+    .define("FLEXLAYOUT_SWIFT_PACKAGE"),
+  ],
+  swiftSettings: [
+    .define("FLEXLAYOUT_SWIFT_PACKAGE"),
+  ]
+)
+```
+
+Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#226](https://github.com/layoutBox/FlexLayout/pull/226)
+
+
+## [1.3.32](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.32)
+Released on 2023-05-10
+
+#### Fixes an issue where YGApplyLayoutToViewHierarchy assigns a value to frame.size that does not rounded to the pixel grid
+
+Added by [Dongkyu Kim](https://github.com/stleamist) in Pull Request [#225](https://github.com/layoutBox/FlexLayout/pull/225)
+
+
+## [1.3.31](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.31)
+Released on 2023-04-12
+
+#### Fix for Swift 5.8 
+
+Added by [Rachik Abidi](https://github.com/RachikAbidi) in Pull Request [#223](https://github.com/layoutBox/FlexLayout/pull/223)
+
+## [1.3.30](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.30)
+Released on 2023-02-28
+
+#### Fixes issue while including FlexLayout as a dependency of another Swift Package
+
+Fixes issue [#219](https://github.com/layoutBox/FlexLayout/issues/219) where including FlexLayout as a dependency of another swift package would fail to build - because it isn't possible to set the preprocessor definition `FLEXLAYOUT_SWIFT_PACKAGE` without an Xcode project.
+
+Added by [Luke Wakeford](https://github.com/lukewakeford) in Pull Request [#221](https://github.com/layoutBox/FlexLayout/pull/221)
+
+
+## [1.3.29](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.29)
+Released on 2023-02-28
+
+#### Add `border(_ width: CGFloat, _ color: UIColor)` 
+
+Added by [gyuchan](https://github.com/gyuchan) in Pull Request [#216](https://github.com/layoutBox/FlexLayout/pull/216)
+
+## [1.3.28](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.28)
+Released on 2023-02-25
+
+#### Add `Flex.direction` property
+
+Added by [gyuchan](https://github.com/gyuchan) in Pull Request [#213](https://github.com/layoutBox/FlexLayout/pull/213)
+
+
+## [1.3.27](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.27)
+Released on 2023-01-20
+
+#### Round pixel values of intrinsicSize with YGRoundPixelValue
+
+Added by [Dongkyu Kim](https://github.com/stleamist) in Pull Request [#210](https://github.com/layoutBox/FlexLayout/pull/210)
+
+
+## [1.3.26](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.26)
+Released on 2023-01-20
+
+#### Fixed crash with nan dimensions
+
+Added by [iohin](https://github.com/iohin) in Pull Request [#211](https://github.com/layoutBox/FlexLayout/pull/211)
+
+## [1.3.25](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.25)
+Released on 2022-12-23
+
+#### Add `flex.cornerRadius(_ value: CGFloat)` function
+
+Added by [minhaaan](https://github.com/minhaaan) in Pull Request [#209](https://github.com/layoutBox/FlexLayout/pull/209)
+
 ## [1.3.24](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.24)
 Released on 2022-04-08
 
-####Change the access control of margin padding functions
+#### Change the access control of margin padding functions
 
 Added by [OhKanghoon](https://github.com/OhKanghoon) in Pull Request [#199](https://github.com/layoutBox/FlexLayout/pull/199)
 

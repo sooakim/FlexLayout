@@ -1,24 +1,24 @@
 source 'https://cdn.cocoapods.org/'
 use_frameworks!
-platform :ios, '9.0'
+platform :ios, '13.4'
 
 workspace 'FlexLayout.xcworkspace'
 
+target 'FlexLayout' do
+  pod 'Yoga'
+end
+
 target 'FlexLayoutTests' do
   project 'FlexLayout.xcodeproj'
-  pod 'FlexLayout', :path => './'
-
-  pod 'Quick'
-  pod 'Nimble', :inhibit_warnings => true
+  pod 'FlexLayout', path: './'
 end
 
 target 'FlexLayoutSample' do
-  project 'Example/FlexLayoutSample.xcodeproj'
+  project 'Example/cocoapods/FlexLayoutSample.xcodeproj'
 
-  pod 'FlexLayout', :path => './'
+  pod 'FlexLayout', path: './'
   pod 'PinLayout'
 
   # Debug only
   pod 'SwiftLint'
 end
-

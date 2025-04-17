@@ -5,57 +5,34 @@ import PackageDescription
 
 let package = Package(
   name: "FlexLayout",
+  platforms: [
+    .iOS(.v12),
+  ],
   products: [
     .library(name: "FlexLayout", targets: ["FlexLayout"]),
-    .library(name: "FlexLayoutYoga", targets: ["FlexLayoutYoga"]),
-    .library(name: "FlexLayoutYogaKit", targets: ["FlexLayoutYogaKit"])
   ],
   dependencies: [
+    .package(url: "https://github.com/facebook/yoga.git", .upToNextMinor(from: "3.2.1")),
   ],
   targets: [
     .target(
       name: "FlexLayout",
-      dependencies: ["FlexLayoutYoga", "FlexLayoutYogaKit"],
+      dependencies: ["FlexLayoutYogaKit"],
       path: "Sources/Swift",
-      cSettings: [
-        .define("FLEXLAYOUT_SWIFT_PACKAGE")
-      ],
-      cxxSettings: [
-        .define("FLEXLAYOUT_SWIFT_PACKAGE"),
-        .headerSearchPath("include/yoga/"),
-        .headerSearchPath("./")
-      ],
-      swiftSettings: [
-        .define("FLEXLAYOUT_SWIFT_PACKAGE")
-      ]
-    ),
-    .target(
-      name: "FlexLayoutYoga",
-      dependencies: [],
-      path: "Sources/yoga",
-      cSettings: [
-        .define("FLEXLAYOUT_SWIFT_PACKAGE")
-      ],
-      cxxSettings: [
-        .define("FLEXLAYOUT_SWIFT_PACKAGE"),
-        .headerSearchPath("include/yoga/"),
-        .headerSearchPath("./")
-      ]
+      publicHeadersPath: "Public"
     ),
     .target(
       name: "FlexLayoutYogaKit",
-      dependencies: ["FlexLayoutYoga"],
+      dependencies: ["yoga"],
       path: "Sources/YogaKit",
-      cSettings: [
-        .define("FLEXLAYOUT_SWIFT_PACKAGE")
-      ],
-      cxxSettings: [
-        .define("FLEXLAYOUT_SWIFT_PACKAGE"),
-        .headerSearchPath("include/YogaKit/"),
-        .headerSearchPath("./")
+      publicHeadersPath: "include/YogaKit"
+    ),
+    .testTarget(
+      name: "FlexLayoutTests",
+      dependencies: [
+        "FlexLayout",
       ]
-    )
+    ),
   ],
-  cLanguageStandard: .gnu99,
-  cxxLanguageStandard: .gnucxx11
+  cxxLanguageStandard: CXXLanguageStandard(rawValue: "c++20")
 )
